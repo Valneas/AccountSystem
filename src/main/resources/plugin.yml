@@ -1,0 +1,11 @@
+name: AccountSystem
+version: 0.1
+authors:
+  - Azodox_
+  - Virtual
+main: net.valneas.account.AccountSystem
+commands:
+  permission:
+    description: Add/Remove/Show permissions from a player
+  rank:
+    description: Add/Remove/Show ranks from a player
