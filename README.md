@@ -1,4 +1,4 @@
-# AccountSystem (v0.1)
+# AccountSystem (v0.2 )
 The Account System plugin to manage every accounts on the server
 
 ## Wiki | Développeurs
@@ -47,4 +47,25 @@ La seule commande disponible actuellement est la commande /rank, elle permet de 
 **/rank add [joueur/uuid] [id/nom du rang/power]** permet d'ajouter un rang fictif à un joueur\
 **/rank remove [joueur/uuid] [id/nom du rang/power]** permet de retirer un rang fictif à un joueur
 
-:warning: Dans cette version, aucune permission n'a été défini pour pouvoir utiliser la commande /rank ce qui fait que n'importe qui sur le serveur peut enlever/ajouter/voir les rangs d'un joueur :warning: 
+## Wiki | 'super-user'
+
+Le champ super-user est ajouté manuellement à un compte dans la base de données
+Il est a été ajouté à 2 utilisateurs jusqu'à présent.
+
+Pour vérifier si un joueur a cette autorisation :
+
+``̀`java
+if(accountManager.getAccount().containsKey("super-user") && accountManager.getAccount().getBoolean("super-user")){
+  //CODE
+}
+```
+
+Et pour vérifier s'il ne l'a pas :
+
+```java
+if(!accountManager.getAccount().containsKey("super-user") || !accountManager.getAccount().getBoolean("super-user")){
+  //CODE
+}
+```
+
+:warning: Cette version supporte le champ '**super-user**' :warning: 
