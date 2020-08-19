@@ -54,7 +54,7 @@ Il est a été ajouté à 2 utilisateurs jusqu'à présent.
 
 Pour vérifier si un joueur a cette autorisation :
 
-``̀`java
+```java
 if(accountManager.getAccount().containsKey("super-user") && accountManager.getAccount().getBoolean("super-user")){
   //CODE
 }
