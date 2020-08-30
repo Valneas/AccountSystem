@@ -119,14 +119,6 @@ public class AccountManager {
         update(doc);
     }
 
-    public float getZip(){
-        if(hasAnAccount()){
-            return 0.0f;
-        }
-
-        return getAccount().get("zip", Float.class);
-    }
-
     public void setFirstConnection(long firstConnection){
         if(!hasAnAccount()) return;
         final Document doc = getAccount();
