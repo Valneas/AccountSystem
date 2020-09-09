@@ -120,7 +120,7 @@ public class AccountManager {
     }
 
     public float getZip(){
-        if(hasAnAccount()){
+        if(!hasAnAccount()){
             return 0.0f;
         }
 
