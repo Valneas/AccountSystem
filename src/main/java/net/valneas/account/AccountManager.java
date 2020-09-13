@@ -39,6 +39,8 @@ public class AccountManager {
                 .append("uuid", uuid)
                 .append("zap", 500.0f)
                 .append("zip", 0.0f)
+                .append("xp", 0.0f)
+                .append("level", 0.0d)
                 .append("first-connection", null)
                 .append("last-connection", null)
                 .append("last-disconnection", null)
@@ -125,6 +127,42 @@ public class AccountManager {
         }
 
         return getAccount().get("zip", Float.class);
+    }
+
+    public float getXp(){
+        if(!hasAnAccount()){
+            return 0.0f;
+        }
+
+        return getAccount().get("xp", Float.class);
+    }
+
+    public void setXp(float xp){
+        if(!hasAnAccount()){
+            return;
+        }
+
+        final Document doc = getAccount();
+        doc.replace("xp", xp);
+        update(doc);
+    }
+
+    public double getLevel(){
+        if(!hasAnAccount()){
+            return 0.0f;
+        }
+
+        return getAccount().getDouble("level");
+    }
+
+    public void setLevel(double level){
+        if(!hasAnAccount()){
+            return;
+        }
+
+        final Document doc = getAccount();
+        doc.replace("level", level);
+        update(doc);
     }
 
     public void setFirstConnection(long firstConnection){
