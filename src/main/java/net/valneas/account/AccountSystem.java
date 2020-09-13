@@ -12,9 +12,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class AccountSystem extends JavaPlugin {
 
-    private final Mongo mongo = new Mongo(this);
-    private final MongoUtil mongoUtil = new MongoUtil(this);
-    private final PermissionManager permissionManager = new PermissionManager(mongo.getMongoClient());
+    private Mongo mongo;
+    private MongoUtil mongoUtil;
+    private PermissionManager permissionManager;
 
     /**
      * Plugin initialization
@@ -22,6 +22,10 @@ public class AccountSystem extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+
+        mongo = new Mongo(this);
+        mongoUtil = new MongoUtil(this);
+        permissionManager = new PermissionManager(mongo.getMongoClient());
 
         registerEvents();
         getCommand("permission").setExecutor(new PermissionCommand());
