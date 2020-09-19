@@ -140,6 +140,7 @@ public class AccountCommand implements CommandExecutor {
                                     limit = args[2].equalsIgnoreCase("max") ? accounts.countDocuments() : Long.parseLong(args[2]);
                                 } catch (Exception e){
                                     player.sendMessage(ChatColor.RED + "Erreur : La limite demandée n'est pas un nombre.");
+                                    return true;
                                 }
 
                                 TextComponent message = new TextComponent("Comptes :\n\n");
@@ -170,105 +171,108 @@ public class AccountCommand implements CommandExecutor {
                     The set argument.
                  */
 
-                if(args.length > 3) {
-                    if (args.length > 4) {
-                        player.sendMessage(getHelpMessage());
-                        return true;
-                    }
+                player.sendMessage(ChatColor.RED + "Erreur : Commande désactivée, désolé Billy...");
+                return true;
 
-                    /*
-                        Final variables used.
-                     */
-                    final MongoClient mongo = main.getMongo().getMongoClient();/*The mongo client to get info in the db*/
-                    final MongoDatabase database = mongo.getDatabase(main.getConfig().getString("mongodb.database")); /*The db*/
-                    final MongoCollection<Document> accounts = database.getCollection("accounts");/*The collection of every accounts*/
-
-                    final String secondArgType = getSecondArgType(args[1]);/*See the method getSecondArgType below*/
-
-                    final String key = args[2];
-
-                    if(key.equalsIgnoreCase("uuid") || key.equalsIgnoreCase("_id")){
-                        player.sendMessage(ChatColor.RED + "Erreur : Vous ne pouvez pas modifier cette valeur");
-                        return true;
-                    }
-
-                    final String value = args[3];
-                    if (secondArgType != null) {
-                        switch (secondArgType) {
-
-                            /*
-                                If the args[1] given is a name.
-                             */
-                            case "name":
-                                final Document oldByName = main.getMongoUtil().getByName(args[1]);/*The document of the asked account*/
-                                final Document byName = main.getMongoUtil().getByName(args[1]);/*The document of the asked account*/
-
-                                try{
-                                    byName.replace(key, value);
-                                    accounts.findOneAndReplace(oldByName, byName);
-                                } catch (Exception e){
-                                    player.sendMessage(ChatColor.RED + "Une erreur s'est produite, vérifiez votre commande.");
-                                }
-
-                                player.sendMessage(ChatColor.AQUA + "Modifié avec succès !");
-                                break;
-
-                           /*
-                                If the args[1] given is an uuid.
-                             */
-                            case "uuid":
-                                final Document oldByUUID = main.getMongoUtil().getByUUID(args[1]);/*The document of the asked account*/
-                                final Document byUUID = main.getMongoUtil().getByUUID(args[1]);/*The document of the asked account*/
-
-                                try{
-                                    byUUID.replace(key, value);
-                                    accounts.findOneAndReplace(oldByUUID, byUUID);
-                                } catch (Exception e){
-                                    player.sendMessage(ChatColor.RED + "Une erreur s'est produite, vérifiez votre commande.");
-                                }
-
-                                player.sendMessage(ChatColor.AQUA + "Modifié avec succès !");
-                                break;
-
-                            /*
-                                If the args[1] given is an objectID.
-                             */
-                            case "ObjectID":
-                                final Document oldByObjectID = main.getMongoUtil().getByObjectID(args[1]);/*The document of the asked account*/
-                                final Document byObjectID = main.getMongoUtil().getByObjectID(args[1]);/*The document of the asked account*/
-
-                                try{
-                                    byObjectID.replace(key, value);
-                                    accounts.findOneAndReplace(oldByObjectID, byObjectID);
-                                } catch (Exception e){
-                                    player.sendMessage(ChatColor.RED + "Une erreur s'est produite, vérifiez votre commande.");
-                                }
-
-                                player.sendMessage(ChatColor.AQUA + "Modifié avec succès !");
-                                break;
-
-                            /*
-                                If the args[1] given is *.
-                             */
-                            case "*":
-
-                                for (Document document : accounts.find()) {
-                                    try{
-                                        Document oldDocument = document;
-                                        document.replace(key, value);
-                                        accounts.findOneAndReplace(oldDocument, document);
-                                    } catch (Exception e){
-                                        player.sendMessage(ChatColor.RED + "Une erreur s'est produite, vérifiez votre commande.");
-                                    }
-                                }
-
-                                player.sendMessage(ChatColor.AQUA + "Tous les documents ont été modifiés avec succès !");
-                                break;
-
-                            default: break;
-                        }
-                    }
-                }
+//                if(args.length > 3) {
+//                    if (args.length > 4) {
+//                        player.sendMessage(getHelpMessage());
+//                        return true;
+//                    }
+//
+//                    /*
+//                        Final variables used.
+//                     */
+//                    final MongoClient mongo = main.getMongo().getMongoClient();/*The mongo client to get info in the db*/
+//                    final MongoDatabase database = mongo.getDatabase(main.getConfig().getString("mongodb.database")); /*The db*/
+//                    final MongoCollection<Document> accounts = database.getCollection("accounts");/*The collection of every accounts*/
+//
+//                    final String secondArgType = getSecondArgType(args[1]);/*See the method getSecondArgType below*/
+//
+//                    final String key = args[2];
+//
+//                    if(key.equalsIgnoreCase("uuid") || key.equalsIgnoreCase("_id")){
+//                        player.sendMessage(ChatColor.RED + "Erreur : Vous ne pouvez pas modifier cette valeur");
+//                        return true;
+//                    }
+//
+//                    final String value = args[3];
+//                    if (secondArgType != null) {
+//                        switch (secondArgType) {
+//
+//                            /*
+//                                If the args[1] given is a name.
+//                             */
+//                            case "name":
+//                                final Document oldByName = main.getMongoUtil().getByName(args[1]);/*The document of the asked account*/
+//                                final Document byName = main.getMongoUtil().getByName(args[1]);/*The document of the asked account*/
+//
+//                                try{
+//                                    byName.replace(key, value);
+//                                    accounts.findOneAndReplace(oldByName, byName);
+//                                } catch (Exception e){
+//                                    player.sendMessage(ChatColor.RED + "Une erreur s'est produite, vérifiez votre commande.");
+//                                }
+//
+//                                player.sendMessage(ChatColor.AQUA + "Modifié avec succès !");
+//                                break;
+//
+//                           /*
+//                                If the args[1] given is an uuid.
+//                             */
+//                            case "uuid":
+//                                final Document oldByUUID = main.getMongoUtil().getByUUID(args[1]);/*The document of the asked account*/
+//                                final Document byUUID = main.getMongoUtil().getByUUID(args[1]);/*The document of the asked account*/
+//
+//                                try{
+//                                    byUUID.replace(key, value);
+//                                    accounts.findOneAndReplace(oldByUUID, byUUID);
+//                                } catch (Exception e){
+//                                    player.sendMessage(ChatColor.RED + "Une erreur s'est produite, vérifiez votre commande.");
+//                                }
+//
+//                                player.sendMessage(ChatColor.AQUA + "Modifié avec succès !");
+//                                break;
+//
+//                            /*
+//                                If the args[1] given is an objectID.
+//                             */
+//                            case "ObjectID":
+//                                final Document oldByObjectID = main.getMongoUtil().getByObjectID(args[1]);/*The document of the asked account*/
+//                                final Document byObjectID = main.getMongoUtil().getByObjectID(args[1]);/*The document of the asked account*/
+//
+//                                try{
+//                                    byObjectID.replace(key, value);
+//                                    accounts.findOneAndReplace(oldByObjectID, byObjectID);
+//                                } catch (Exception e){
+//                                    player.sendMessage(ChatColor.RED + "Une erreur s'est produite, vérifiez votre commande.");
+//                                }
+//
+//                                player.sendMessage(ChatColor.AQUA + "Modifié avec succès !");
+//                                break;
+//
+//                            /*
+//                                If the args[1] given is *.
+//                             */
+//                            case "*":
+//
+//                                for (Document document : accounts.find()) {
+//                                    try{
+//                                        Document oldDocument = document;
+//                                        document.replace(key, value);
+//                                        accounts.findOneAndReplace(oldDocument, document);
+//                                    } catch (Exception e){
+//                                        player.sendMessage(ChatColor.RED + "Une erreur s'est produite, vérifiez votre commande.");
+//                                    }
+//                                }
+//
+//                                player.sendMessage(ChatColor.AQUA + "Tous les documents ont été modifiés avec succès !");
+//                                break;
+//
+//                            default: break;
+//                        }
+//                    }
+//                }
             }
         }else if(sender instanceof ConsoleCommandSender){
             /*The console part of the code.*/
@@ -335,7 +339,7 @@ public class AccountCommand implements CommandExecutor {
             final Object value = entry.getValue();
 
             TextComponent msg;
-            if(key.contains("ip")){
+            if(key.contains("ip") && !key.equals("zip")){
                 msg = new TextComponent(ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + key +
                         ChatColor.DARK_GRAY + " > ");
                 TextComponent ip = new TextComponent(ChatColor.GRAY + "[CACHE(E)]");
