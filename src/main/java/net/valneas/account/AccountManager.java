@@ -93,7 +93,7 @@ public class AccountManager {
         return null;
     }
 
-    public void setZap(float zap){
+    public void setZap(double zap){
         if(!hasAnAccount()){
             return;
         }
@@ -103,15 +103,15 @@ public class AccountManager {
         update(doc);
     }
 
-    public float getZap(){
+    public double getZap(){
         if(hasAnAccount()){
-            return 0.0f;
+            return 0.0d;
         }
 
-        return getAccount().get("zap", Float.class);
+        return getAccount().getDouble("zap");
     }
 
-    public void setZip(float zip){
+    public void setZip(double zip){
         if(!hasAnAccount()){
             return;
         }
@@ -121,23 +121,23 @@ public class AccountManager {
         update(doc);
     }
 
-    public float getZip(){
+    public double getZip(){
         if(!hasAnAccount()){
-            return 0.0f;
+            return 0.0d;
         }
 
-        return getAccount().get("zip", Float.class);
+        return getAccount().getDouble("zip");
     }
 
-    public float getXp(){
+    public double getXp(){
         if(!hasAnAccount()){
-            return 0.0f;
+            return 0.0d;
         }
 
-        return getAccount().get("xp", Float.class);
+        return getAccount().getDouble("xp");
     }
 
-    public void setXp(float xp){
+    public void setXp(double xp){
         if(!hasAnAccount()){
             return;
         }
@@ -149,7 +149,7 @@ public class AccountManager {
 
     public double getLevel(){
         if(!hasAnAccount()){
-            return 0.0f;
+            return 0.0d;
         }
 
         return getAccount().getDouble("level");
