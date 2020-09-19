@@ -1,4 +1,4 @@
-# AccountSystem (v0.3.0)
+# AccountSystem (v0.3.1)
 The Account System plugin to manage every accounts on the server
 
 ## Wiki | Développeurs
