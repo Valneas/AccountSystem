@@ -6,7 +6,7 @@
 
     <groupId>net.valneas</groupId>
     <artifactId>AccountSystem</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -74,7 +74,7 @@
     <distributionManagement>
         <repository>
             <id>valneas-repo</id>
-            <url>http://mc.oltenserv.fr:781/repository/valneas-repo/</url>
+            <url>http://mc.valneas.net:781/repository/valneas-repo/</url>
         </repository>
     </distributionManagement>
 
