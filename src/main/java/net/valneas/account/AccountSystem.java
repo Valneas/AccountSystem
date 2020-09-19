@@ -1,11 +1,9 @@
 package net.valneas.account;
 
 import net.valneas.account.api.commands.AccountCommand;
-import net.valneas.account.api.commands.PermissionCommand;
 import net.valneas.account.api.commands.RankCommand;
 import net.valneas.account.listener.*;
 import net.valneas.account.mongo.Mongo;
-import net.valneas.account.rank.permission.PermissionManager;
 import net.valneas.account.util.MongoUtil;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +12,6 @@ public class AccountSystem extends JavaPlugin {
 
     private Mongo mongo;
     private MongoUtil mongoUtil;
-    private PermissionManager permissionManager;
 
     /**
      * Plugin initialization
@@ -25,10 +22,8 @@ public class AccountSystem extends JavaPlugin {
 
         mongo = new Mongo(this);
         mongoUtil = new MongoUtil(this);
-        permissionManager = new PermissionManager(mongo.getMongoClient());
 
         registerEvents();
-        getCommand("permission").setExecutor(new PermissionCommand());
         getCommand("rank").setExecutor(new RankCommand(this));
         getCommand("account").setExecutor(new AccountCommand(this));
         getLogger().info("Enabled!");
@@ -41,8 +36,6 @@ public class AccountSystem extends JavaPlugin {
         registerListeners(
                 new PlayerJoinListener(this),
                 new PlayerQuitListener(this),
-                new PermissionAssignedListener(),
-                new PermissionUnAssignedListener(),
                 new MajorRankChangedListener(this),
                 new RankAddedListener(this),
                 new RankRemovedListener(this)
@@ -73,13 +66,5 @@ public class AccountSystem extends JavaPlugin {
      */
     public MongoUtil getMongoUtil() {
         return mongoUtil;
-    }
-
-    /**
-     * Get a permission manager class instance
-     * @return permission manager class instance
-     */
-    public PermissionManager getPermissionManager() {
-        return permissionManager;
     }
 }
