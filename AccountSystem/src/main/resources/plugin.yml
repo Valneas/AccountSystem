@@ -1,0 +1,11 @@
+name: AccountSystem
+version: 0.3.2
+authors:
+  - Azodox_
+  - Virtual
+main: net.valneas.account.AccountSystem
+commands:
+  rank:
+    description: Add/Remove/Show ranks from a player
+  account:
+    description: Manage accounts
