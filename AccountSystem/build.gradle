@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'maven-publish'
+}
+
+group 'net.valneas'
+version '0.3.2'
+
+compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    maven {
+        name "valneas-nexus"
+        credentials {
+            username "$mavenUser"
+            password "$mavenPassword"
+        }
+        url "http://mc.valneas.net:781/repository/valneas-repo"
+        allowInsecureProtocol = true
+    }
+    maven {
+        url "https://repo.codemc.org/repository/maven-public/"
+    }
+}
+
+dependencies {
+    implementation "org.spigotmc:spigot:1.16.5"
+    compileOnly 'org.mongodb:mongodb-driver:3.12.8'
+    compileOnly 'io.github.leonardosnt:bungeechannelapi:1.0.0-SNAPSHOT'
+}
+
+shadowJar {
+    dependencies {
+        configurations = [project.configurations.compileOnly]
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact("build/libs/AccountSystem-" + "$version" + "-all.jar") {
+                extension 'jar'
+            }
+        }
+    }
+    repositories {
+        maven {
+            name "valneas-nexus"
+            credentials {
+                username "$mavenUser"
+                password "$mavenPassword"
+            }
+            url "http://mc.valneas.net:781/repository/valneas-repo"
+            allowInsecureProtocol = true
+        }
+    }
+}
