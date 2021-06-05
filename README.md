@@ -1,4 +1,4 @@
-# AccountSystem (v0.3.1)
+# AccountSystem (v0.3.2)
 The Account System plugin to manage every accounts on the server
 
 ## Wiki | Développeurs
@@ -8,7 +8,7 @@ The Account System plugin to manage every accounts on the server
 **PS :** Pour récupérer une instance de la classe `AccountSystem` il suffit de faire ceci :
 
 ```java
-AccountSystem accountSystem = (AccountSystem) Bukkit.getPluginManager().getPlugin("AccountSystem");
+final AccountSystem accountSystem = (AccountSystem) Bukkit.getPluginManager().getPlugin("AccountSystem");
 ```
 
 ---
