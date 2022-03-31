@@ -97,17 +97,15 @@ public class AccountManager {
 
         Document account = new Document("name", name)
                 .append("uuid", uuid)
-                .append("zap", 500.0f)
-                .append("zip", 0.0f)
-                .append("xp", 0.0f)
+                .append("xp", 0.0d)
                 .append("level", 0.0d)
+                .append("money", 0.0d)
                 .append("first-connection", null)
                 .append("last-connection", null)
                 .append("last-disconnection", null)
                 .append("last-ip", null)
                 .append("major-rank", RankUnit.JOUEUR.getId())
                 .append("ranks", new ArrayList<Integer>())
-                .append("active-profile", -1)
                 .append("moderation-mod", null)
         ;
         accounts.insertOne(account);
@@ -154,42 +152,6 @@ public class AccountManager {
         return null;
     }
 
-    public double getZap(){
-        if(hasAnAccount()){
-            return 0.0d;
-        }
-
-        return getAccount().getDouble("zap");
-    }
-
-    public void setZap(double zap){
-        if(!hasAnAccount()){
-            return;
-        }
-
-        final Document doc = getAccount();
-        doc.replace("zap", zap);
-        update(doc);
-    }
-
-    public double getZip(){
-        if(!hasAnAccount()){
-            return 0.0d;
-        }
-
-        return getAccount().getDouble("zip");
-    }
-
-    public void setZip(double zip){
-        if(!hasAnAccount()){
-            return;
-        }
-
-        final Document doc = getAccount();
-        doc.replace("zip", zip);
-        update(doc);
-    }
-
     public double getXp(){
         if(!hasAnAccount()){
             return 0.0d;
@@ -223,24 +185,6 @@ public class AccountManager {
 
         final Document doc = getAccount();
         doc.replace("level", level);
-        update(doc);
-    }
-
-    public int getActiveProfile(){
-        if(!hasAnAccount()){
-            return 0;
-        }
-
-        return getAccount().getInteger("active-profile");
-    }
-
-    public void setActiveProfile(int profile){
-        if(!hasAnAccount()){
-            return;
-        }
-
-        final Document doc = getAccount();
-        doc.replace("active-profile", profile);
         update(doc);
     }
 
